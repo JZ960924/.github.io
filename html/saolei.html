@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>扫雷红包发送</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../CSS/reset.css">
+    <link rel="stylesheet" href="../CSS/sm.css">
+    <link rel="stylesheet" href="../CSS/redbag.css">
+    <link rel="stylesheet" href="../CSS/iconfont.css">
+    <link rel="stylesheet" href="../CSS/iconfont.ttf">
+  </head>
+  <body>
+    <div class="page-group redbag">
+        <div class="page page-current">
+            <!-- 页面内容 -->
+            <header class="bar bar-nav barBg">
+              <button class="button button-link button-nav pull-left">
+                <span class="iconfont icon-zuojiantou pull-left return"></span>
+              </button>
+              <h1 class="title">发红包</h1>
+            </header>
+            <div class="content-padded redContent flex-box-v flex-h-ce">
+                <div class="redBox">
+                   <div class="list-block">
+                      <ul>
+                        <li class="item-content">
+                          <div class="item-inner">
+                            <div class="item-title">总金额</div>
+                            <div class="item-after"><input type="text" name="" placeholder="1-100" class="redInput item-after money"><span class="pos item-after">元</span></div>
+                          </div>
+                        </li>
+                        <li class="liPad">
+                          每人抽到的金额随机
+                        </li>
+                        <li class="item-content flex-box-v" style="height: auto">
+                          <div class="item-inner">
+                            <div class="item-title">红包倍数</div>
+                            <div class="item-after"><input type="text" name="" placeholder="0.00" class="redInput item-after beishu"><span class="pos item-after">倍</span></div>
+                          </div>
+                          <div class="radioBox flex-box flexWrap">
+                            <span class="radioOne">6个包</span>
+                            <span class="radioOne">8个包</span>
+                            <span class="radioOne">10个包</span>
+                            <span class="radioOne">12个包</span>
+                            <span class="radioOne">14个包</span>
+                          </div>
+                        </li>
+                        <li class="liPad">
+                          不同红包个数对应不同赔率
+                        </li>
+                        <li class="item-content">
+                          <div class="item-inner">
+                            <div class="item-title">雷区</div>
+                            <div class="item-after"><input type="text" name="" placeholder="0-9" class="redInput item-after much"><span class="pos item-after">个位数</span></div>
+                          </div>
+                        </li>
+                        <li class="liPad">
+                          领到所含设置的个位数的玩家，视为踩到雷
+                        </li>
+                        <li class="item-content">
+                          <div class="item-inner">
+                            <div class="item-title">留言</div>
+                            <div class="item-after"><input type="text" name="" placeholder="恭喜发财，大吉大利" class="redBigInput item-after flex-1"></div>
+                          </div>
+                        </li>
+                      </ul>
+                   </div>
+                   <div class="showMoney flex-box flex-center-center">
+                    ￥0.00
+                  </div>
+                  <button class="giveMoney redBg">塞钱进红包</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../JS/jquery.3.3.1.min.js"></script>
+    <script>var Zepto=jQuery</script>
+    <script type='text/javascript' src='../JS/sm.min.js' charset='utf-8'></script>
+    <script type="text/javascript">
+        $.init();
+        var baoshu=-1;
+        $(".radioOne").click(function (argument) {
+          // body...
+            $(this).siblings().removeClass("checked")
+            $(this).addClass("checked");
+            var lei=$(this).html()
+            baoshu=lei.slice(0,lei.length-2);
+        });
+        $(".money").bind('input propertychange',function(){
+          if($(".money").val()!=''&&!isNaN($(".money").val())){
+           $(".showMoney").html($(".money").val())
+         }
+        })
+        $(".giveMoney").click(function(){
+            if($(".money").val()==''){
+                $.toast("请填写总金额");
+            }else if(isNaN($(".money").val())){
+                $.toast("金额请填写数字");
+            }else if($(".beishu").val()==''){
+                $.toast("请填写倍数");
+            }else if(isNaN($(".beishu").val())){
+                $.toast("倍数请填写数字");
+            }else if($(".much").val()==''){
+                $.toast("请填写雷区数");
+            }else if(isNaN($(".much").val())){
+                $.toast("雷区数请填写数字");
+            }else if(baoshu<0){
+                $.toast("请选择红包数");
+            }else{
+              // $.post("demo_test_post.asp",
+              // {
+              //     name:$(".money").val(),
+              //     city:$(".beishu").val(),
+              //     baoshu:baoshu,
+              //     leiqu:$(".much").val(),
+              //     liuyan:$(".redBigInput").val()
+              // },
+              // function(data,status){
+              //   window.location.href = "saolei_chat.html";
+              // });
+            }
+      })
+        $(".return").click(function(){
+          window.history.go(-1)
+        })
+    </script>
+  </body>
+</html>
